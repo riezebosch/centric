@@ -24,7 +24,7 @@ namespace CentricDemo.Tests
         [TestMethod]
         [TestCategory("unit-test")]
         [Owner("Manuel")]
-        public void LowerCaseNameResultIsFalse()
+        public void GivenLowerCaseName_WhenValidate_ThenResultIsFalse()
         {
             string name = "marc";
 
@@ -33,6 +33,14 @@ namespace CentricDemo.Tests
             var result = validator.IsValidName(name);
 
             Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void GivenNull_WhenValidate_ThenArgumentNullException()
+        {
+            var validator = new Validator();
+            validator.IsValidName(null);
         }
     }
 }

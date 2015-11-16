@@ -9,6 +9,11 @@ namespace CentricDemo
     {
         public bool IsValidName(string name)
         {
+            if (name == null)
+            {
+                throw new ArgumentNullException("name");
+            }
+
             if (name == "marc")
             {
                 return false;
