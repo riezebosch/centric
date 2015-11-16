@@ -42,5 +42,7 @@ namespace CentricDemo.Tests
             var validator = new Validator();
             validator.IsValidName(null);
         }
+
+  
     }
 }
