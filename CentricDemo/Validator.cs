@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CentricDemo
 {
-    public class Validator
+    internal class Validator
     {
         public bool IsValidName(string name)
         {
