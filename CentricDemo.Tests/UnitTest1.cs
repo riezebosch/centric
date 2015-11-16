@@ -22,6 +22,8 @@ namespace CentricDemo.Tests
         }
 
         [TestMethod]
+        [TestCategory("unit-test")]
+        [Owner("Manuel")]
         public void LowerCaseNameResultIsFalse()
         {
             string name = "marc";
