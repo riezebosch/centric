@@ -16,5 +16,8 @@ namespace Service.ServiceContract
         [OperationContract]
         [FaultContract(typeof(Verbose))]
         void ThisMorningIsNotSoGoodHereIsYourException();
+
+        [OperationContract]
+        Antwoord Send(Boodschap boodschap);
     }
 }

@@ -20,5 +20,19 @@ namespace Service.Implementation
         {
             throw new FaultException<Verbose>(new Verbose());
         }
+
+
+        public Antwoord Send(Boodschap boodschap)
+        {
+            if (boodschap.DezeIsLokaal != null)
+            {
+                throw new ArgumentException("De lokale parameter bevatte stiekem toch een waarde!!!", "boodschap");
+            }
+            return new Antwoord 
+            { 
+                Tekst = "Hello to U2" ,
+                DezeIsOokLokaal = "DEZE HAD NIET MEEGESTUURD MOGEN WORDEN!!!"
+            };
+        }
     }
 }

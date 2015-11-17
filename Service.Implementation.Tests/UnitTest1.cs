@@ -59,5 +59,25 @@ namespace Service.Implementation.Tests
             {
             }
         }
+
+        [TestMethod]
+        public void DeMeesteServiceMethodsAccepterenInputOfGevenOutputTerug()
+        {
+            Antwoord result = client.Send(new Boodschap { Tekst = "Hello World!" });
+            Assert.AreEqual("Hello to U2", result.Tekst);
+        }
+
+        [TestMethod]
+        public void AlleenDeVeldenDieIkZelfSelecteerMoetenMeeWordenGestuurd()
+        {
+            Antwoord result = client.Send(new Boodschap 
+            { 
+                Tekst = "Hello World!",
+                DezeIsLokaal = "NIET MEESTUREN AUB"
+            });
+
+            Assert.AreEqual("Hello to U2", result.Tekst);
+            Assert.AreEqual(null, result.DezeIsOokLokaal);
+        }
     }
 }
