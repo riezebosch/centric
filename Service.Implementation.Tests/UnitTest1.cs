@@ -10,100 +10,53 @@ namespace Service.Implementation.Tests
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
-        public void TestMethod1()
+        ServiceHost host;
+        IHello client;
+
+        [TestInitialize]
+        public void InitializeHostAndClient()
         {
-            using (var host = new ServiceHost(typeof(HelloService)))
+            host = new ServiceHost(typeof(HelloService));
+
+            host.AddServiceEndpoint(typeof(IHello),
+                new NetNamedPipeBinding(),
+                "net.pipe://localhost/hello");
+            host.Open();
+
+            client = ChannelFactory<IHello>.CreateChannel(new NetNamedPipeBinding(),
+                new EndpointAddress("net.pipe://localhost/hello"));
+        }
+
+        [TestCleanup]
+        public void CleanUpClientAndHost()
+        {
+            if (((ICommunicationObject)client).State != CommunicationState.Faulted)
             {
-                host.AddServiceEndpoint(typeof(IHello),
-                    new NetNamedPipeBinding(),
-                    "net.pipe://localhost/hello");
-                host.Open();
-
-                var client = ChannelFactory<IHello>.CreateChannel(new NetNamedPipeBinding(),
-                    new EndpointAddress("net.pipe://localhost/hello"));
-
-                try
-                {
-                    client.GoodMorning();
-                }
-                finally
-                {
-                    ((IDisposable)client).Dispose();
-                }
+                ((IDisposable)client).Dispose();
             }
+            else
+            {
+                ((ICommunicationObject)client).Abort();
+            }
+
+            host.Close();
         }
 
         [TestMethod]
-        public void TestMethodZonderUsing()
+        public void TestServiceMethodGoodMorning()
         {
-            var host = new ServiceHost(typeof(HelloService));
-
-            try
-            {
-                host.AddServiceEndpoint(typeof(IHello),
-                    new NetNamedPipeBinding(),
-                    "net.pipe://localhost/hello");
-                host.Open();
-
-                var client = ChannelFactory<IHello>.CreateChannel(new NetNamedPipeBinding(),
-                    new EndpointAddress("net.pipe://localhost/hello"));
-
-                try
-                {
-                    client.GoodMorning();
-                }
-                finally
-                {
-                    ((IDisposable)client).Dispose();
-                }
-            }
-            finally
-            {
-                ((IDisposable)host).Dispose();
-            }
+            client.GoodMorning();
         }
 
         [TestMethod]
         public void WanneerMijnServiceEenExceptionGooitMoetMijnClientDaaropKunnenAnticiperen()
         {
-            var host = new ServiceHost(typeof(HelloService));
-
             try
             {
-                host.AddServiceEndpoint(typeof(IHello),
-                    new NetNamedPipeBinding(),
-                    "net.pipe://localhost/hello");
-                host.Open();
-
-                var client = ChannelFactory<IHello>.CreateChannel(new NetNamedPipeBinding(),
-                    new EndpointAddress("net.pipe://localhost/hello"));
-
-                try
-                {
-                    try
-                    {
-                        client.ThisMorningIsNotSoGoodHereIsYourException();
-                    }
-                    catch (FaultException<Verbose>)
-                    {
-                    }
-                }
-                finally
-                {
-                    if (((ICommunicationObject)client).State != CommunicationState.Faulted)
-                    {
-                        ((IDisposable)client).Dispose();
-                    }
-                    else
-                    {
-                        ((ICommunicationObject)client).Abort();
-                    }
-                }
+                client.ThisMorningIsNotSoGoodHereIsYourException();
             }
-            finally
+            catch (FaultException<Verbose>)
             {
-                ((IDisposable)host).Dispose();
             }
         }
     }
