@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Service.DataContract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -11,5 +12,9 @@ namespace Service.ServiceContract
     {
         [OperationContract]
         void GoodMorning();
+
+        [OperationContract]
+        [FaultContract(typeof(Verbose))]
+        void ThisMorningIsNotSoGoodHereIsYourException();
     }
 }

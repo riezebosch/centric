@@ -1,7 +1,9 @@
-﻿using Service.ServiceContract;
+﻿using Service.DataContract;
+using Service.ServiceContract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 
 namespace Service.Implementation
@@ -11,6 +13,12 @@ namespace Service.Implementation
         public void GoodMorning()
         {
             //throw new NotImplementedException();
+        }
+
+
+        public void ThisMorningIsNotSoGoodHereIsYourException()
+        {
+            throw new FaultException<Verbose>(new Verbose());
         }
     }
 }
