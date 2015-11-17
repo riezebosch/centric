@@ -54,9 +54,11 @@ namespace Service.Implementation.Tests
             try
             {
                 client.ThisMorningIsNotSoGoodHereIsYourException();
+                Assert.Fail("dit punt had niet bereikt mogen worden aangezien op de regel hierboven een exception op had moeten treden.");
             }
-            catch (FaultException<Verbose>)
+            catch (FaultException<Verbose> ex)
             {
+                Assert.AreEqual("voorbeeld van een mooie foutmelding", ex.Detail.FoutOmschrijving);
             }
         }
 

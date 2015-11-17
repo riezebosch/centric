@@ -18,7 +18,10 @@ namespace Service.Implementation
 
         public void ThisMorningIsNotSoGoodHereIsYourException()
         {
-            throw new FaultException<Verbose>(new Verbose());
+            throw new FaultException<Verbose>(new Verbose
+                {
+                    FoutOmschrijving = "voorbeeld van een mooie foutmelding"
+                });
         }
 
 
