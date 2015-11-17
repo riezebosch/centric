@@ -7,6 +7,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentricDemo", "CentricDemo\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CentricDemo.Tests", "CentricDemo.Tests\CentricDemo.Tests.csproj", "{3529991C-ADCA-49A2-A2FC-38389AC364A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Host", "Service.Host\Service.Host.csproj", "{92B109DA-7A5F-446E-8F07-44804728F23C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Implementation", "Service.Implementation\Service.Implementation.csproj", "{5B7CDDA3-115E-440B-9678-D5BBBFD2860A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Implementation.Tests", "Service.Implementation.Tests\Service.Implementation.Tests.csproj", "{7E51DE78-D633-4EB2-AD77-84CF6FF6D559}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.ServiceContract", "Service.ServiceContract\Service.ServiceContract.csproj", "{CCCDB529-D7FB-4C1B-95D4-C9F550161DB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.DataContract", "Service.DataContract\Service.DataContract.csproj", "{FE745931-583A-45D2-95E4-4A1ABF18B047}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +31,26 @@ Global
 		{3529991C-ADCA-49A2-A2FC-38389AC364A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3529991C-ADCA-49A2-A2FC-38389AC364A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3529991C-ADCA-49A2-A2FC-38389AC364A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92B109DA-7A5F-446E-8F07-44804728F23C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92B109DA-7A5F-446E-8F07-44804728F23C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92B109DA-7A5F-446E-8F07-44804728F23C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92B109DA-7A5F-446E-8F07-44804728F23C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B7CDDA3-115E-440B-9678-D5BBBFD2860A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B7CDDA3-115E-440B-9678-D5BBBFD2860A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B7CDDA3-115E-440B-9678-D5BBBFD2860A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B7CDDA3-115E-440B-9678-D5BBBFD2860A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E51DE78-D633-4EB2-AD77-84CF6FF6D559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E51DE78-D633-4EB2-AD77-84CF6FF6D559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E51DE78-D633-4EB2-AD77-84CF6FF6D559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E51DE78-D633-4EB2-AD77-84CF6FF6D559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCCDB529-D7FB-4C1B-95D4-C9F550161DB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCCDB529-D7FB-4C1B-95D4-C9F550161DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCCDB529-D7FB-4C1B-95D4-C9F550161DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCCDB529-D7FB-4C1B-95D4-C9F550161DB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE745931-583A-45D2-95E4-4A1ABF18B047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE745931-583A-45D2-95E4-4A1ABF18B047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE745931-583A-45D2-95E4-4A1ABF18B047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE745931-583A-45D2-95E4-4A1ABF18B047}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
