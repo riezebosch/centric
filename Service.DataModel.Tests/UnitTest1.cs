@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Service.DataModel.Tests
 {
@@ -15,6 +16,15 @@ namespace Service.DataModel.Tests
                 {
                     Console.WriteLine("Name: {0} {1}", person.FirstName, person.LastName);
                 }
+            }
+        }
+
+        [TestMethod]
+        public void ControleerDatKimBijDePersonenZit()
+        {
+            using (var context = new SchoolEntities())
+            {
+                Assert.IsTrue(context.People.Any(x => x.FirstName == "Kim"));
             }
         }
     }
