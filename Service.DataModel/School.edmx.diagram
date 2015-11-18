@@ -13,8 +13,6 @@
         <EntityTypeShape EntityType="SchoolModel.Person" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolModel.StudentGrade" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="SchoolModel.FK_Course_Department" ManuallyRouted="false" />
-        <AssociationConnector Association="SchoolModel.FK_OnlineCourse_Course" ManuallyRouted="false" />
-        <AssociationConnector Association="SchoolModel.FK_OnsiteCourse_Course" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK_StudentGrade_Course" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK_OfficeAssignment_Person" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK_StudentGrade_Student" ManuallyRouted="false" />
@@ -23,6 +21,8 @@
         <InheritanceConnector EntityType="SchoolModel.Student" />
         <EntityTypeShape EntityType="SchoolModel.Teacher" Width="1.5" PointX="6.625" PointY="11.25" />
         <InheritanceConnector EntityType="SchoolModel.Teacher" />
+        <InheritanceConnector EntityType="SchoolModel.OnlineCourse" />
+        <InheritanceConnector EntityType="SchoolModel.OnsiteCourse" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -53,5 +53,15 @@ namespace Service.DataModel.Tests
 
             }
         }
+
+        [TestMethod]
+        public void TestTablePerTypeInheritanceOpCourse()
+        {
+            using (var context = new SchoolEntities())
+            {
+                Assert.IsTrue(context.Courses.OfType<OnsiteCourse>().Any());
+                Assert.IsTrue(context.Courses.OfType<OnlineCourse>().Any());
+            }
+        }
     }
 }

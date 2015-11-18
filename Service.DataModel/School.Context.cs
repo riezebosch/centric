@@ -28,8 +28,6 @@ namespace Service.DataModel
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<OfficeAssignment> OfficeAssignments { get; set; }
-        public virtual DbSet<OnlineCourse> OnlineCourses { get; set; }
-        public virtual DbSet<OnsiteCourse> OnsiteCourses { get; set; }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<StudentGrade> StudentGrades { get; set; }
     }
