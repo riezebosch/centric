@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Service.ServiceContract
 {
-    [ServiceContract]
+    [ServiceContract(Namespace = "urn:www-infosupport-com:wcfdev:demo-service")]
     public interface IHello
     {
         [OperationContract]

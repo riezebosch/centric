@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:www-infosupport-com:wcfdev:demo-service" elementFormDefault="qualified" targetNamespace="urn:www-infosupport-com:wcfdev:demo-service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:2520/Service1.svc?xsd=xsd3" namespace="urn:www-infosupport-com:wcf:centric-maatwerk-training:2015" />
+  <xs:import schemaLocation="http://localhost:2520/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Service.DataContract" />
+  <xs:element name="GoodMorning">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GoodMorningResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThisMorningIsNotSoGoodHereIsYourException">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ThisMorningIsNotSoGoodHereIsYourExceptionResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Send">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="urn:www-infosupport-com:wcf:centric-maatwerk-training:2015" minOccurs="0" name="boodschap" nillable="true" type="q1:Boodschap" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Service.DataContract" minOccurs="0" name="SendResult" nillable="true" type="q2:Antwoord" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

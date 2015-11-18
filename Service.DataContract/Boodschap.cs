@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Service.DataContract
 {
-    [DataContract]
+    [DataContract(Namespace = "urn:www-infosupport-com:wcf:centric-maatwerk-training:2015")]
     public class Boodschap
     {
         [DataMember]

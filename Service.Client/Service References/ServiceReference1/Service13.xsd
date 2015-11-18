@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:www-infosupport-com:wcf:centric-maatwerk-training:2015" elementFormDefault="qualified" targetNamespace="urn:www-infosupport-com:wcf:centric-maatwerk-training:2015" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Boodschap">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Tekst" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Boodschap" nillable="true" type="tns:Boodschap" />
+</xs:schema>
