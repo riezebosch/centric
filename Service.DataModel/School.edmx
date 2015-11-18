@@ -277,8 +277,6 @@
           <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="HireDate" Type="DateTime" Precision="3" />
-          <Property Name="EnrollmentDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="OfficeAssignment" Relationship="Self.FK_OfficeAssignment_Person" FromRole="Person" ToRole="OfficeAssignment" />
           <NavigationProperty Name="StudentGrades" Relationship="Self.FK_StudentGrade_Student" FromRole="Person" ToRole="StudentGrade" />
           <NavigationProperty Name="Courses" Relationship="Self.CourseInstructor" FromRole="Person" ToRole="Course" />
@@ -407,6 +405,12 @@
             <End Role="Person" EntitySet="People" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Student" BaseType="SchoolModel.Person">
+          <Property Name="EnrollmentDate" Type="DateTime" Precision="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teacher" BaseType="SchoolModel.Person">
+          <Property Name="HireDate" Type="DateTime" Precision="3" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -462,13 +466,25 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="People">
-            <EntityTypeMapping TypeName="SchoolModel.Person">
+            <EntityTypeMapping TypeName="IsTypeOf(SchoolModel.Person)">
               <MappingFragment StoreEntitySet="Person">
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(SchoolModel.Teacher)">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
                 <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <Condition ColumnName="HireDate" IsNull="false" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(SchoolModel.Student)">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
                 <ScalarProperty Name="EnrollmentDate" ColumnName="EnrollmentDate" />
+                <Condition ColumnName="EnrollmentDate" IsNull="false" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

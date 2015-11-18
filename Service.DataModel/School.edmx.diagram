@@ -19,6 +19,10 @@
         <AssociationConnector Association="SchoolModel.FK_OfficeAssignment_Person" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK_StudentGrade_Student" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.CourseInstructor" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SchoolModel.Student" Width="1.5" PointX="3.375" PointY="11" />
+        <InheritanceConnector EntityType="SchoolModel.Student" />
+        <EntityTypeShape EntityType="SchoolModel.Teacher" Width="1.5" PointX="6.625" PointY="11.25" />
+        <InheritanceConnector EntityType="SchoolModel.Teacher" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -24,8 +24,6 @@ namespace Service.DataModel
         public int PersonID { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
-        public Nullable<System.DateTime> HireDate { get; set; }
-        public Nullable<System.DateTime> EnrollmentDate { get; set; }
     
         public virtual OfficeAssignment OfficeAssignment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
