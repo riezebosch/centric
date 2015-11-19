@@ -175,6 +175,12 @@ namespace Service.Client.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:www-infosupport-com:wcfdev:demo-service/IHello/Send", ReplyAction="urn:www-infosupport-com:wcfdev:demo-service/IHello/SendResponse")]
         System.Threading.Tasks.Task<Service.Client.ServiceReference1.Antwoord> SendAsync(Service.Client.ServiceReference1.Boodschap boodschap);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:www-infosupport-com:wcfdev:demo-service/IHello/Slow", ReplyAction="urn:www-infosupport-com:wcfdev:demo-service/IHello/SlowResponse")]
+        void Slow(int x);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:www-infosupport-com:wcfdev:demo-service/IHello/Slow", ReplyAction="urn:www-infosupport-com:wcfdev:demo-service/IHello/SlowResponse")]
+        System.Threading.Tasks.Task SlowAsync(int x);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -226,6 +232,14 @@ namespace Service.Client.ServiceReference1 {
         
         public System.Threading.Tasks.Task<Service.Client.ServiceReference1.Antwoord> SendAsync(Service.Client.ServiceReference1.Boodschap boodschap) {
             return base.Channel.SendAsync(boodschap);
+        }
+        
+        public void Slow(int x) {
+            base.Channel.Slow(x);
+        }
+        
+        public System.Threading.Tasks.Task SlowAsync(int x) {
+            return base.Channel.SlowAsync(x);
         }
     }
 }

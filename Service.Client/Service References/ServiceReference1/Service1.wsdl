@@ -29,6 +29,12 @@
   <wsdl:message name="IHello_Send_OutputMessage">
     <wsdl:part name="parameters" element="tns:SendResponse" />
   </wsdl:message>
+  <wsdl:message name="IHello_Slow_InputMessage">
+    <wsdl:part name="parameters" element="tns:Slow" />
+  </wsdl:message>
+  <wsdl:message name="IHello_Slow_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SlowResponse" />
+  </wsdl:message>
   <wsdl:portType name="IHello">
     <wsdl:operation name="GoodMorning">
       <wsdl:input wsaw:Action="urn:www-infosupport-com:wcfdev:demo-service/IHello/GoodMorning" message="tns:IHello_GoodMorning_InputMessage" />
@@ -42,6 +48,10 @@
     <wsdl:operation name="Send">
       <wsdl:input wsaw:Action="urn:www-infosupport-com:wcfdev:demo-service/IHello/Send" message="tns:IHello_Send_InputMessage" />
       <wsdl:output wsaw:Action="urn:www-infosupport-com:wcfdev:demo-service/IHello/SendResponse" message="tns:IHello_Send_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Slow">
+      <wsdl:input wsaw:Action="urn:www-infosupport-com:wcfdev:demo-service/IHello/Slow" message="tns:IHello_Slow_InputMessage" />
+      <wsdl:output wsaw:Action="urn:www-infosupport-com:wcfdev:demo-service/IHello/SlowResponse" message="tns:IHello_Slow_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
 </wsdl:definitions>

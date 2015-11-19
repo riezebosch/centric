@@ -34,6 +34,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="Slow">
+      <soap:operation soapAction="urn:www-infosupport-com:wcfdev:demo-service/IHello/Slow" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="HelloService">
     <wsdl:port name="BasicHttpBinding_IHello" binding="tns:BasicHttpBinding_IHello">
