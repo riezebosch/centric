@@ -7,6 +7,7 @@ using Service.DataContract;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Threading;
 
 namespace Service.Implementation.Tests
 {
@@ -42,7 +43,20 @@ namespace Service.Implementation.Tests
                 ((ICommunicationObject)client).Abort();
             }
 
-            host.Close();
+            if (host.State == CommunicationState.Opened)
+            {
+                host.Close();
+            }
+            else
+            {
+                host.Abort();
+            }
+        }
+
+        [ClassCleanup]
+        public static void WaitForServiceHostToCloseDown()
+        {
+            Thread.Sleep(3000);
         }
 
         [TestMethod]
