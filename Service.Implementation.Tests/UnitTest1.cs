@@ -125,11 +125,10 @@ namespace Service.Implementation.Tests
             var sw = Stopwatch.StartNew();
 
             // Zelf een task maken en starten
-            var t1 = new Task<int>(() => ClientSlow());
-            t1.Start();
+            var t1 = ClientSlowAsync();
 
             // Of direct een running task maken
-            var t2 = Task<int>.Run(() => ClientSlow());
+            var t2 = ClientSlowAsync();
 
             // Het resultaat opvragen zorgt ervoor dat gewacht gaat worden,
             // maar beide tasks zijn ondertussen aan het uivoeren.
@@ -142,6 +141,11 @@ namespace Service.Implementation.Tests
             Assert.IsTrue(elapsed <= x1 + x2, "elapsed ({0}) zou kleiner moeten zijn dan de som ({1}, {2}) van beide aanroepen.", elapsed, x1, x2);
             Assert.IsTrue(elapsed > x1, "elapsed is niet groter dan x1");
             Assert.IsTrue(elapsed > x2, "elapsed is niet groter dan x2");
+        }
+
+        private Task<int> ClientSlowAsync()
+        {
+            return Task<int>.Run(() => ClientSlow());
         }
 
         [TestMethod]
