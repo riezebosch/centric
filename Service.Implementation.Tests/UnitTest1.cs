@@ -191,5 +191,17 @@ namespace Service.Implementation.Tests
             Console.WriteLine(string.Join(", ", result));
 
         }
+
+        [TestMethod]
+        public async Task AwaitabletimeSpan()
+        {
+            var sw = Stopwatch.StartNew();
+
+            // De TimeSpan is "awaitable"  geworden door
+            // de GetAwaiter extension method in TimeSpanExtensions.
+            await TimeSpan.FromSeconds(5);
+
+            Assert.IsTrue(sw.Elapsed.TotalSeconds > 5);
+        }
     }
 }
