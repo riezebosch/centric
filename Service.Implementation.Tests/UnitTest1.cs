@@ -88,12 +88,8 @@ namespace Service.Implementation.Tests
         {
             // Om te meten
             var sw = Stopwatch.StartNew();
-            
-            // Random getal tussen 1 en 10
-            var random = new Random();
-            var x = random.Next(1, 10);
 
-            client.Slow(x);
+            var x = ClientSlow();
 
             // Hoeveel seconden heeft dat geduurd
             var elapsed = sw.Elapsed.TotalSeconds;
@@ -102,6 +98,33 @@ namespace Service.Implementation.Tests
             // en ook meer dan x
             Assert.AreNotEqual(0, elapsed);
             Assert.IsTrue(elapsed >= x);
+        }
+
+        private int ClientSlow()
+        {
+            // Random getal tussen 1 en 10
+            var random = new Random();
+            var x = random.Next(1, 10);
+
+            client.Slow(x);
+            return x;
+        }
+
+        [TestMethod]
+        public void DemoVanAsynchroonProgrammeren2()
+        {
+            // Om te meten
+            var sw = Stopwatch.StartNew();
+
+            var x1 = ClientSlow();
+            var x2 = ClientSlow();
+
+            // Hoeveel seconden heeft dat geduurd
+            var elapsed = sw.Elapsed.TotalSeconds;
+
+            Assert.IsTrue(elapsed <= x1 + x2, "elapsed zou kleiner moeten zijn dan de som van beide aanroepen.");
+            Assert.IsTrue(elapsed > x1, "elapsed is niet groter dan x1");
+            Assert.IsTrue(elapsed > x2, "elapsed is niet groter dan x2");
         }
     }
 }
