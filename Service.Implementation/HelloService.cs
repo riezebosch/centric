@@ -6,6 +6,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Service.Implementation
 {
@@ -43,6 +44,7 @@ namespace Service.Implementation
         {
             // Even wachten
             Thread.Sleep(x * 1000);
+            //await Task.Delay(x * 1000);
         }
     }
 }

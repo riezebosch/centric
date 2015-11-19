@@ -5,6 +5,8 @@ using Service.Implementation;
 using Service.ServiceContract;
 using Service.DataContract;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Service.Implementation.Tests
 {
@@ -102,11 +104,17 @@ namespace Service.Implementation.Tests
 
         private int ClientSlow()
         {
+            // Nieuwe client aanmaken want het blijkt dat meerdere
+            // calls op dezelfde client ervoor zorgen dat er weer
+            // gewacht wordt.
+            var c = ChannelFactory<IHello>.CreateChannel(new NetNamedPipeBinding(),
+                new EndpointAddress("net.pipe://localhost/hello"));
+
             // Random getal tussen 1 en 10
             var random = new Random();
             var x = random.Next(1, 10);
 
-            client.Slow(x);
+            c.Slow(x);
             return x;
         }
 
@@ -116,15 +124,54 @@ namespace Service.Implementation.Tests
             // Om te meten
             var sw = Stopwatch.StartNew();
 
-            var x1 = ClientSlow();
-            var x2 = ClientSlow();
+            // Zelf een task maken en starten
+            var t1 = new Task<int>(() => ClientSlow());
+            t1.Start();
+
+            // Of direct een running task maken
+            var t2 = Task<int>.Run(() => ClientSlow());
+
+            // Het resultaat opvragen zorgt ervoor dat gewacht gaat worden,
+            // maar beide tasks zijn ondertussen aan het uivoeren.
+            int x1 = t1.Result;
+            int x2 = t2.Result;
 
             // Hoeveel seconden heeft dat geduurd
             var elapsed = sw.Elapsed.TotalSeconds;
 
-            Assert.IsTrue(elapsed <= x1 + x2, "elapsed zou kleiner moeten zijn dan de som van beide aanroepen.");
+            Assert.IsTrue(elapsed <= x1 + x2, "elapsed ({0}) zou kleiner moeten zijn dan de som ({1}, {2}) van beide aanroepen.", elapsed, x1, x2);
             Assert.IsTrue(elapsed > x1, "elapsed is niet groter dan x1");
             Assert.IsTrue(elapsed > x2, "elapsed is niet groter dan x2");
+        }
+
+        [TestMethod]
+        public void ParallelDemo()
+        {
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    ClientSlow();
+            //}
+
+            Parallel.For(0, 5, i => ClientSlow());
+
+        }
+
+        [TestMethod]
+        public void PLinqDemo()
+        {
+            var items = new int[]{ 1, 2, 5, 3, 6, 9, 4 }.Concat(Enumerable.Range(0, 10000));
+
+
+            var result = from i in items
+                             .AsParallel()
+                             .AsOrdered()
+                             .WithExecutionMode(ParallelExecutionMode.ForceParallelism)
+                         where i % 2 == 0
+                         orderby i
+                         select i;
+
+            Console.WriteLine(string.Join(", ", result));
+
         }
     }
 }
