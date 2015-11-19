@@ -4,6 +4,7 @@ using System.ServiceModel;
 using Service.Implementation;
 using Service.ServiceContract;
 using Service.DataContract;
+using System.Diagnostics;
 
 namespace Service.Implementation.Tests
 {
@@ -80,6 +81,27 @@ namespace Service.Implementation.Tests
 
             Assert.AreEqual("Hello to U2", result.Tekst);
             Assert.AreEqual(null, result.DezeIsOokLokaal);
+        }
+
+        [TestMethod]
+        public void DemoVanAsynchroonProgrammeren()
+        {
+            // Om te meten
+            var sw = Stopwatch.StartNew();
+            
+            // Random getal tussen 1 en 10
+            var random = new Random();
+            var x = random.Next(1, 10);
+
+            client.Slow(x);
+
+            // Hoeveel seconden heeft dat geduurd
+            var elapsed = sw.Elapsed.TotalSeconds;
+
+            // In elk geval meer dan 0
+            // en ook meer dan x
+            Assert.AreNotEqual(0, elapsed);
+            Assert.IsTrue(elapsed >= x);
         }
     }
 }

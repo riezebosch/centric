@@ -19,5 +19,8 @@ namespace Service.ServiceContract
 
         [OperationContract]
         Antwoord Send(Boodschap boodschap);
+
+        [OperationContract]
+        void Slow(int x);
     }
 }

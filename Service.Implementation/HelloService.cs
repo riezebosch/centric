@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 
 namespace Service.Implementation
 {
@@ -36,6 +37,12 @@ namespace Service.Implementation
                 Tekst = "Hello to U2" ,
                 DezeIsOokLokaal = "DEZE HAD NIET MEEGESTUURD MOGEN WORDEN!!!"
             };
+        }
+
+        public void Slow(int x)
+        {
+            // Even wachten
+            Thread.Sleep(x * 1000);
         }
     }
 }
