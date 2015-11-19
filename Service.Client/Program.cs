@@ -27,17 +27,14 @@ namespace Service.Client
             }
         }
 
-        private static Task DoWork(ServiceReference1.HelloClient client)
+        private static async Task DoWork(ServiceReference1.HelloClient client)
         {
-            return client
-                .SlowAsync(5)
-                .ContinueWith(t =>
-                {
-                    Console.WriteLine("First call ready");
-                    client.Slow(4);
+            await client.SlowAsync(5);
 
-                    Console.WriteLine("Second call ready");
-                });
+            Console.WriteLine("First call ready");
+            client.Slow(4);
+
+            Console.WriteLine("Second call ready");
         }
     }
 }
