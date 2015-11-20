@@ -23,12 +23,15 @@ namespace Service.Implementation.Tests
             host = new ServiceHost(typeof(HelloService));
 
             host.AddServiceEndpoint(typeof(IHello),
-                new NetNamedPipeBinding(),
-                "net.pipe://localhost/hello");
+                new BasicHttpBinding(),
+                "http://localhost:1234/hello");
             host.Open();
 
-            client = ChannelFactory<IHello>.CreateChannel(new NetNamedPipeBinding(),
-                new EndpointAddress("net.pipe://localhost/hello"));
+            var factory = new ChannelFactory<IHello>(new BasicHttpBinding());
+            factory.Open();
+
+            client = factory.CreateChannel(new EndpointAddress("http://localhost:1234/hello"));
+            ((IClientChannel)client).Open();
         }
 
         [TestCleanup]
@@ -116,19 +119,20 @@ namespace Service.Implementation.Tests
             Assert.IsTrue(elapsed >= x);
         }
 
+        Random random = new Random();
+
         private int ClientSlow()
         {
             // Nieuwe client aanmaken want het blijkt dat meerdere
             // calls op dezelfde client ervoor zorgen dat er weer
             // gewacht wordt.
-            var c = ChannelFactory<IHello>.CreateChannel(new NetNamedPipeBinding(),
-                new EndpointAddress("net.pipe://localhost/hello"));
+            //var c = ChannelFactory<IHello>.CreateChannel(new NetNamedPipeBinding(),
+            //    new EndpointAddress("net.pipe://localhost/hello"));
 
             // Random getal tussen 1 en 10
-            var random = new Random();
             var x = random.Next(1, 10);
 
-            c.Slow(x);
+            client.Slow(x);
             return x;
         }
 
