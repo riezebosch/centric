@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,6 +11,106 @@ namespace ReflectionDemo
     {
         static void Main(string[] args)
         {
+            
+            if (args.Length != 1)
+            {
+                Console.WriteLine("Specify test assembly is parameter");
+                return;
+            }
+
+
+            var location = args.First();
+            var ai = new AssemblyInspector(location);
+            var classes = ai.GetClasses();
+            int apassed = 0, afailed = 0;
+
+            foreach (var c in classes)
+            {
+                var runner = new TestRunner(c);
+                Console.WriteLine(c.Name);
+
+                var ci = new ClassInspector(c);
+
+                if (!ExecuteIfExists(runner, ci.GetClassInitialize()))
+                {
+                    break;
+                }
+
+                var testinit = ci.GetTestInitialize();
+                var testclean = ci.GetTestCleanUp();
+                var methods = ci.GetMethods();
+                int cpassed = 0, cfailed = 0;
+
+                foreach (var m in methods)
+                {
+                    if (!ExecuteIfExists(runner, testinit))
+                    {
+                        break;
+                    }
+
+                    ExecuteTest(ref apassed, ref afailed, runner, ref cpassed, ref cfailed, m);
+                    ExecuteIfExists(runner, testclean);
+                }
+
+                ExecuteIfExists(runner, ci.GetClassCleanUp());
+                Console.WriteLine("  [{0}] Tests passed: {1}, tests failed: {2}", c.Name, cpassed, cfailed);
+            }
+            Console.WriteLine("Tests passed: {0}, tests failed: {1}", apassed, afailed);
+        }
+
+        private static bool ExecuteIfExists(TestRunner runner, MethodInfo m)
+        {
+            if (m != null)
+            {
+                Write(string.Format("  Executing: {0}", m.Name), ConsoleColor.DarkGray);
+                if (!runner.Execute(m))
+                {
+                    WriteLine("  Failed", ConsoleColor.Red);
+                    return false; 
+                }
+
+                Console.WriteLine();
+            }
+
+            return true;
+        }
+
+        private static void Write(string text, ConsoleColor color)
+        {
+            ExecuteWithColor(() => Console.Write(text), color);
+        }
+
+       
+
+        private static void ExecuteTest(ref int apassed, ref int afailed, TestRunner runner, ref int cpassed, ref int cfailed, System.Reflection.MethodInfo m)
+        {
+            Console.Write("  {0}: ", m.Name);
+            var result = runner.Execute(m);
+            if (result)
+            {
+                WriteLine("Passed", ConsoleColor.Green);
+                cpassed++;
+                apassed++;
+            }
+            else
+            {
+                WriteLine("Failed", ConsoleColor.Red);
+                cfailed++;
+                afailed++;
+            }
+        }
+
+        private static void WriteLine(string text, ConsoleColor color)
+        {
+            ExecuteWithColor(() => Console.WriteLine(text), color);
+        }
+
+        private static void ExecuteWithColor(Action action, ConsoleColor color)
+        {
+            var original = Console.ForegroundColor;
+            Console.ForegroundColor = color;
+            action();
+            Console.ForegroundColor = original;
         }
     }
 }
