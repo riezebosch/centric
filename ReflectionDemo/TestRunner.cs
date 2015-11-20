@@ -2,18 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace ReflectionDemo
 {
     public class TestRunner
     {
-        public bool Execute(System.Reflection.MethodInfo method)
+        public bool Execute(MethodInfo method)
         {
             var instance = Activator.CreateInstance(method.DeclaringType);
             var expected = method
-                .GetCustomAttributes(typeof(ExpectedExceptionAttribute), true)
-                .Cast<ExpectedExceptionAttribute>();
+                .GetCustomAttributes<ExpectedExceptionAttribute>();
 
             try
             {
