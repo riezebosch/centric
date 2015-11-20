@@ -11,26 +11,20 @@ namespace ReflectionDemo
         public bool Execute(System.Reflection.MethodInfo method)
         {
             var instance = Activator.CreateInstance(method.DeclaringType);
+            var expected = method
+                .GetCustomAttributes(typeof(ExpectedExceptionAttribute), true)
+                .Cast<ExpectedExceptionAttribute>();
 
             try
             {
                 method.Invoke(instance, new object[0]);
-
-                return !method
-                    .GetCustomAttributes(typeof(ExpectedExceptionAttribute), true)
-                    .Any();
+                return !expected.Any();
             }
             catch (Exception e)
             {
-                var expected = method
-                    .GetCustomAttributes(typeof(ExpectedExceptionAttribute), true)
-                    .Cast<ExpectedExceptionAttribute>();
-                
                 return expected
                     .Any(a => e.InnerException.GetType() == a.ExceptionType);
             }
-
-            return true;
         }
     }
 }
