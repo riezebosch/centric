@@ -36,7 +36,24 @@ namespace ReflectionDemo.Tests
             bool result = runner.Execute(typeof(TestDemoClass).GetMethod("FailingTest"));
 
             Assert.IsFalse(result);
+        }
 
+        [TestMethod]
+        public void ExecuteOfMethodThrowingExpectedExceptionShouldReturnTrue()
+        {
+            var runner = new TestRunner();
+            bool result = runner.Execute(typeof(TestDemoClass).GetMethod("ThrowsExpectedException"));
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void ExecuteOfMethodNotThrowingExpectedExceptionShouldReturnFalse()
+        {
+            var runner = new TestRunner();
+            bool result = runner.Execute(typeof(TestDemoClass).GetMethod("NotThrowingExpectedException"));
+
+            Assert.IsFalse(result);
         }
     }
 
@@ -51,6 +68,20 @@ namespace ReflectionDemo.Tests
         public void FailingTest()
         {
             Assert.Fail("kaboom!");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ThrowsExpectedException()
+        {
+            throw new ArgumentNullException();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void NotThrowingExpectedException()
+        {
+
         }
     }
 }

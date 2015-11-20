@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,10 +15,19 @@ namespace ReflectionDemo
             try
             {
                 method.Invoke(instance, new object[0]);
+
+                return !method
+                    .GetCustomAttributes(typeof(ExpectedExceptionAttribute), true)
+                    .Any();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return false;
+                var expected = method
+                    .GetCustomAttributes(typeof(ExpectedExceptionAttribute), true)
+                    .Cast<ExpectedExceptionAttribute>();
+                
+                return expected
+                    .Any(a => e.InnerException.GetType() == a.ExceptionType);
             }
 
             return true;
